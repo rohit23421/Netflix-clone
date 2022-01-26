@@ -19,26 +19,26 @@ const Home = ({ type }) => {
           {
             headers: {
               token:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZWFkYjg2ZDllOGEwYmM1ZDZkNmU4MCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0Mjg3NTkzOCwiZXhwIjoxNjQzMzA3OTM4fQ.SSR8nA-wqJzrKeEizMHWBUhSF24tkCU1KFOMkjlW12I",
+                "Bearer " +
+                JSON.parse(localStorage.getItem("user")).accessToken,
             },
           }
         );
-        console.log(res);
-        //setLists(res.data);
-      } catch (error) {
-        console.log(error);
+        setLists(res.data);
+      } catch (err) {
+        console.log(err);
       }
     };
     getRandomLists();
   }, [type, genre]);
+
   return (
     <div className="home">
       <Navbar />
-      <Featured />
-      <List />
-      <List />
-      <List />
-      <List />
+      <Featured type={type} setGenre={setGenre} />
+      {lists.map((list) => (
+        <List list={list} />
+      ))}
     </div>
   );
 };
