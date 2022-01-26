@@ -71,7 +71,7 @@ router.get("/", verify, async (req, res) => {
     try {
       //find users on the base of queries or find all
       const users = query
-        ? await User.find().sort({ _id: -1 }).limit(2)
+        ? await User.find().sort({ _id: -1 }).limit(5)
         : await User.find();
       //send the users
       res.status(200).json(users);
@@ -89,21 +89,6 @@ router.get("/", verify, async (req, res) => {
 router.get("/stats", async (req, res) => {
   const today = new Date();
   const latYear = today.setFullYear(today.setFullYear() - 1);
-
-  const monthsArray = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
   try {
     const data = await User.aggregate([
